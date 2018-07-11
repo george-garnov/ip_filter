@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <gtest/gtest.h>
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
@@ -37,8 +38,19 @@ bool ipCmp(std::vector<std::string> str1, std::vector<std::string> str2)
     return str1 > str2;
 }
 
+TEST(myTest, Test1) { 
+    ASSERT_EQ(100, 6*6+8*8);
+}
+
+TEST(myTest, Test2) {
+    ASSERT_FALSE(true==false);
+}
+
 int main(int argc, char const *argv[])
 {
+    testing::InitGoogleTest(&argc, argv);
+    //return RUN_ALL_TESTS();
+    
     try
     {
         std::vector<std::vector<std::string> > ip_pool;
