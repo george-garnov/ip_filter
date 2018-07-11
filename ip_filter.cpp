@@ -41,7 +41,8 @@ std::vector<std::string> split(const std::string &str, char d)
 //    return str1 > str2;
 //}
 
-function<vector<string>(vector<string>)> f = [](vector<string> v) { for(auto &s : v) s.insert(0,3-s.length(),'0'); return v; };
+std::function<std::vector<std::string>(std::vector<std::string>)> f =
+    [](std::vector<std::string> v) { for(auto &s : v) s.insert(0,3-s.length(),'0'); return v; };
 
 //TEST(myTest, Test1) { 
 //    ASSERT_EQ(100, 6*6+8*8);
@@ -66,7 +67,7 @@ int main(int argc, char const *argv[])
             ip_pool.push_back(split(v.at(0), '.'));
         }
         
-        sort(ip_pool.begin(), ip_pool.end(), [](vector<string> ip1, vector<string> ip2){return f(ip1) > f(ip2);});
+        sort(ip_pool.begin(), ip_pool.end(), [](std::vector<std::string> ip1, std::vector<std::string> ip2){return f(ip1) > f(ip2);});
 
         // TODO reverse lexicographically sort
 
