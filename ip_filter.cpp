@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
@@ -29,6 +30,17 @@ std::vector<std::string> split(const std::string &str, char d)
     return r;
 }
 
+bool ipCmp(std::vector<std::string> str1, std::vector<std::string> str2)
+{
+    std::string zero = "0";
+    for(int i=0;i<4;i++)
+    {
+        while (str1[i].capacity() < 3) str1[i].insert(0,zero);
+        while (str2[i].capacity() < 3) str2[i].insert(0,zero);
+    }
+    return str1 > str2;
+}
+
 int main(int argc, char const *argv[])
 {
     try
@@ -40,6 +52,8 @@ int main(int argc, char const *argv[])
             std::vector<std::string> v = split(line, '\t');
             ip_pool.push_back(split(v.at(0), '.'));
         }
+        
+        sort(ip_pool.begin(), ip_pool.end(), ipCmp);
 
         // TODO reverse lexicographically sort
 
