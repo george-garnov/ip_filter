@@ -1,0 +1,19 @@
+language: cpp
+install:
+  - sudo apt-get install libgtest-dev -y # installing the gtest development package
+before_script:
+  - cd /usr/src/gtest
+  - sudo env "PATH=$PATH" cmake CMakeLists.txt
+  - sudo make
+  - sudo cp *.a /usr/lib # copy or symlink libgtest.a and libgtest_main.a to your /usr/lib folder
+  - cd "${TRAVIS_BUILD_DIR}"
+script:
+  - cmake .
+  - cmake --build .
+  - cmake --build . --target test
+  - cmake --build . --target package
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+- curl -T ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ugeorge-garnov:$BINTRAY_API_KEY "https://api.bintray.com/content/george-garnov/ip_filter/ip_filter/$TRAVIS_BUILD_NUMBER/ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
