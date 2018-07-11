@@ -32,12 +32,8 @@ std::vector<std::string> split(const std::string &str, char d)
 
 bool ipCmp(std::vector<std::string> str1, std::vector<std::string> str2)
 {
-    std::string zero = "0";
-    for(int i=0;i<4;i++)
-    {
-        while (str1[i].capacity() < 3) str1[i].insert(0,zero);
-        while (str2[i].capacity() < 3) str2[i].insert(0,zero);
-    }
+    for(auto &s : str1) s.insert(0,3-s.length(),'0');
+    for(auto &s : str2) s.insert(0,3-s.length(),'0');
     return str1 > str2;
 }
 
