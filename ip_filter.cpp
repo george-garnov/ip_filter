@@ -7,6 +7,8 @@
 #include <functional>
 #include <gtest/gtest.h>
 
+using namespase std;
+
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
 // ("..", '.') -> ["", "", ""]
@@ -32,12 +34,14 @@ std::vector<std::string> split(const std::string &str, char d)
     return r;
 }
 
-bool ipCmp(std::vector<std::string> str1, std::vector<std::string> str2)
-{
-    for(auto &s : str1) s.insert(0,3-s.length(),'0');
-    for(auto &s : str2) s.insert(0,3-s.length(),'0');
-    return str1 > str2;
-}
+//bool ipCmp(std::vector<std::string> str1, std::vector<std::string> str2)
+//{
+//    for(auto &s : str1) s.insert(0,3-s.length(),'0');
+//    for(auto &s : str2) s.insert(0,3-s.length(),'0');
+//    return str1 > str2;
+//}
+
+function<vector<string>(vector<string>)> f = [](vector<string> v) { for(auto &s : v) s.insert(0,3-s.length(),'0'); return v; };
 
 //TEST(myTest, Test1) { 
 //    ASSERT_EQ(100, 6*6+8*8);
@@ -62,7 +66,7 @@ int main(int argc, char const *argv[])
             ip_pool.push_back(split(v.at(0), '.'));
         }
         
-        sort(ip_pool.begin(), ip_pool.end(), ipCmp);
+        sort(ip_pool.begin(), ip_pool.end(), [](vector<string> ip1, vector<string> ip2){return f(ip1) > f(ip2);});
 
         // TODO reverse lexicographically sort
 
