@@ -7,7 +7,7 @@
 #include <functional>
 //#include <gtest/gtest.h>
 
-using namespase std;
+//using namespase std;
 
 // ("",  '.') -> [""]
 // ("11", '.') -> ["11"]
